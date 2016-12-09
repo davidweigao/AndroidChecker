@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CheckerGame</string>
+    <string name="title">Happy Checker Lite!</string>
+    <string name="new.game">NEW GAME</string>
+    <string name="you.win">You Win!!!</string>
+    <string name="you.lost">You lost...</string>
+</resources>
