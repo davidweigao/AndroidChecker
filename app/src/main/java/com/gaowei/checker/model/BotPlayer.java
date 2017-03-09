@@ -4,11 +4,12 @@ import android.os.Handler;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 /**
- *  This is a Bot player, using a very simple AI: random move, jump if available
+ * This is a Bot player, using a very simple AI: random move, jump if available
  */
 public class BotPlayer extends Player {
 
@@ -21,10 +22,9 @@ public class BotPlayer extends Player {
     @Override
     public void reset() {
         super.reset();
-        if(mCurrentCallback != null) {
+        if (mCurrentCallback != null) {
             mHandler.removeCallbacks(mCurrentCallback);
         }
-
     }
 
     @Override
@@ -38,43 +38,38 @@ public class BotPlayer extends Player {
             }
         };
         mHandler.postDelayed(mCurrentCallback, DELAY_MS);
-
     }
 
     /**
-     *  AI logic
+     * AI logic
      */
     private void autoPlay() {
         List<Piece> candidates = new ArrayList<>();
-        if(mustJump()) {
-            for(Piece p : mMyPiece) {
-                if(p.canJump()) candidates.add(p);
+        if (mustJump()) {
+            for (Piece p : mMyPiece) {
+                if (p.canJump()) candidates.add(p);
             }
         } else {
-            for (Piece p : mMyPiece) {
-                candidates.add(p);
-            }
+            Collections.addAll(candidates, mMyPiece);
         }
         Random random = new Random();
         Piece selected = null;
-        while(!candidates.isEmpty()) {
+        while (!candidates.isEmpty()) {
             int r = random.nextInt(candidates.size());
             Piece candidate = candidates.get(r);
-            if(candidate.hasNextStep()) {
+            if (candidate.hasNextStep()) {
                 selected = candidate;
                 break;
             } else {
                 candidates.remove(r);
             }
         }
-        if(selected == null) {
+        if (selected == null) {
             mPieceMovedListener.pieceMoved();
-            return;
-        }
-        else {
+        } else {
             final Move selectedMove =
                     mustJump() ? getRandomJump(selected) : getRandomMove(selected);
-            if(selectedMove == null) {
+            if (selectedMove == null) {
                 Log.e(LOG_TAG, "impossible");
                 mPieceMovedListener.pieceMoved();
                 return;
@@ -82,18 +77,17 @@ public class BotPlayer extends Player {
             selectedMove.implement();
             mPieceMovedListener.pieceMoved();
         }
-
     }
 
     private Move getRandomMove(Piece piece) {
-        if(!piece.getLeftMove().isValidMove() && !piece.getRightMove().isValidMove()) return null;
-        if(!piece.getLeftMove().isValidMove()) return piece.getRightMove();
-        else if(!piece.getRightMove().isValidMove()) return piece.getLeftMove();
+        if (!piece.getLeftMove().isValidMove() && !piece.getRightMove().isValidMove()) return null;
+        if (!piece.getLeftMove().isValidMove()) return piece.getRightMove();
+        else if (!piece.getRightMove().isValidMove()) return piece.getLeftMove();
         else return new Random().nextBoolean() ? piece.getLeftMove() : piece.getRightMove();
     }
 
     private Move getRandomJump(Piece piece) {
-        if(piece.getLeftMove().isJump() && !piece.getRightMove().isJump()) {
+        if (piece.getLeftMove().isJump() && !piece.getRightMove().isJump()) {
             return piece.getLeftMove();
         } else if (!piece.getLeftMove().isJump() && piece.getRightMove().isJump()) {
             return piece.getRightMove();
@@ -101,4 +95,5 @@ public class BotPlayer extends Player {
             return new Random().nextBoolean() ? piece.getLeftMove() : piece.getRightMove();
         }
     }
+
 }

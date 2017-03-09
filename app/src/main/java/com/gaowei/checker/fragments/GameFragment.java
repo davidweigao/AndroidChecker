@@ -19,10 +19,7 @@ import com.gaowei.checker.model.Player;
 import com.gaowei.checker.view.adapters.BoardAdapter;
 import com.gaowei.checker.R;
 
-public class GameFragment extends Fragment
-        implements AdapterView.OnItemClickListener,
-                    GameStateListener,
-        View.OnClickListener{
+public class GameFragment extends Fragment implements AdapterView.OnItemClickListener, GameStateListener, View.OnClickListener{
     private Game mGame;
     private Board mBoard;
     private GridView boardView;
@@ -33,10 +30,8 @@ public class GameFragment extends Fragment
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_game, container, false);
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_game, container, false);
         mBoard = new Board();
         mGame = new Game(mBoard);
         mWhitePiecePlayer = new BotPlayer();
@@ -54,8 +49,7 @@ public class GameFragment extends Fragment
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+    public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
         Cell cell = mAdapter.getItem(position);
         if(cell.isOccupied()) {
             if(mCurrentPlayer == mBlackPiecePlayer && cell.getPiece().isBlackPiece()) {
@@ -69,12 +63,12 @@ public class GameFragment extends Fragment
     }
 
     @Override
-    public void switchPlayer(Player player) {
+    public void switchPlayer(final Player player) {
         mCurrentPlayer = player;
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
         switch(v.getId()) {
             case R.id.newGameButton:
                 gameReset();
@@ -88,7 +82,7 @@ public class GameFragment extends Fragment
     }
 
     @Override
-    public void gameover(Player winner) {
+    public void gameover(final Player winner) {
         Toast.makeText(getActivity(),
                 winner.equals(mBlackPiecePlayer) ? R.string.you_win : R.string.you_lost,
                 Toast.LENGTH_SHORT).show();

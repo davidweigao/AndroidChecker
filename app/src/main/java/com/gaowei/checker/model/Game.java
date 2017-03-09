@@ -1,10 +1,10 @@
 package com.gaowei.checker.model;
 
-public class Game implements PieceMovedListener{
-    Player mPlayer1;
-    Player mPlayer2;
-    Board mBoard;
-    Player mCurrentPlayer;
+public class Game implements PieceMovedListener {
+    private Player mPlayer1;
+    private Player mPlayer2;
+    private Board mBoard;
+    private Player mCurrentPlayer;
     private GameStateListener mGameStateListener;
 
     public Game(Board board) {
@@ -33,20 +33,20 @@ public class Game implements PieceMovedListener{
         mGameStateListener.switchPlayer(mPlayer2);
     }
 
-    public void changePlayer() {
+    private void changePlayer() {
         mCurrentPlayer = mCurrentPlayer == mPlayer1 ? mPlayer2 : mPlayer1;
         mCurrentPlayer.turnedToPlay();
 
     }
 
-    public boolean isGameOver() {
+    private boolean isGameOver() {
         return !mCurrentPlayer.hasNextStep();
     }
 
     @Override
     public void pieceMoved() {
         changePlayer();
-        if(!isGameOver()) {
+        if (!isGameOver()) {
             mGameStateListener.switchPlayer(mCurrentPlayer);
         } else {
             mCurrentPlayer.reset();

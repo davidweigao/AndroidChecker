@@ -2,14 +2,13 @@ package com.gaowei.checker.model;
 
 import android.util.Log;
 
-public class Move {
+class Move {
     private static final String LOG_TAG = Move.class.getSimpleName();
     private Cell targetCell;
     private Cell sourceCell;
     private Cell middle;
 
-
-    public void implement() {
+    void implement() {
         logJump();
         targetCell.setPiece(sourceCell.getPiece());
         sourceCell.setPiece(null);
@@ -28,42 +27,42 @@ public class Move {
         }
     }
 
-    public void hint() {
+    void hint() {
         if(isValidMove())
             targetCell.setHint(this);
     }
 
-    public void hideHint() {
+    void hideHint() {
         if(isValidMove())
             targetCell.setHint(null);
     }
 
-    public void reset() {
+    void reset() {
         targetCell = null;
         sourceCell = null;
         setMiddle(null);
     }
 
-    public void setMiddle(Cell mid) {
+    void setMiddle(Cell mid) {
         middle = mid;
         if(middle != null) {
             middle.getPiece().setJumpTarget(true);
         }
     }
 
-    public void setSourceCell(Cell sourceCell) {
+    void setSourceCell(Cell sourceCell) {
         this.sourceCell = sourceCell;
     }
 
-    public void setTargetCell(Cell targetCell) {
+    void setTargetCell(Cell targetCell) {
         this.targetCell = targetCell;
     }
 
-    public boolean isJump() {
+    boolean isJump() {
         return middle != null;
     }
 
-    public boolean isValidMove() {
+    boolean isValidMove() {
         return targetCell != null && sourceCell != null;
     }
 

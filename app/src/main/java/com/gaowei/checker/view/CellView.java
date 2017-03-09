@@ -9,13 +9,14 @@ import android.view.View;
 
 import com.gaowei.checker.model.Cell;
 
-public class CellView extends View{
+public class CellView extends View {
 
     private Cell mCell;
     private Paint mBackgroundPaint = new Paint();
     private Paint mHintPaint = new Paint();
     private Paint mPiecePaint = new Paint();
     private Paint mTargetPaint = new Paint();
+
     public CellView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
@@ -36,7 +37,6 @@ public class CellView extends View{
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }
 
-
     private void init() {
         mBackgroundPaint.setStyle(Paint.Style.FILL);
         mBackgroundPaint.setAntiAlias(true);
@@ -52,20 +52,19 @@ public class CellView extends View{
         mTargetPaint.setColor(0xffff0000);
     }
 
-
     public void setCell(Cell cell) {
         mCell = cell;
         cell.setView(this);
         mBackgroundPaint.setColor(mCell.getColor());
-        if(mCell.hasHint())
+        if (mCell.hasHint())
             mHintPaint.setColor(mCell.getHintColor());
-        if(mCell.isOccupied())
+        if (mCell.isOccupied())
             mPiecePaint.setColor(mCell.getPieceColor());
     }
 
     @Override
     public void invalidate() {
-        if(mCell.isOccupied())
+        if (mCell.isOccupied())
             mPiecePaint.setColor(mCell.getPieceColor());
         super.invalidate();
     }
@@ -76,16 +75,15 @@ public class CellView extends View{
         int width = canvas.getWidth();
         int height = canvas.getHeight();
 
-        canvas.drawRect(0,0,width,height,mBackgroundPaint);
-        if(mCell.isOccupied()) {
-            canvas.drawCircle(width/2, height/2, width * 0.4f, mPiecePaint);
-            if(mCell.getPiece().isJumpTarget()) {
+        canvas.drawRect(0, 0, width, height, mBackgroundPaint);
+        if (mCell.isOccupied()) {
+            canvas.drawCircle(width / 2, height / 2, width * 0.4f, mPiecePaint);
+            if (mCell.getPiece().isJumpTarget()) {
                 canvas.drawCircle(width / 2, height / 2, width * 0.45f, mTargetPaint);
             }
-        }
-        else if(mCell.hasHint()) {
+        } else if (mCell.hasHint()) {
             canvas.drawCircle(width / 2, height / 2, width * 0.45f, mHintPaint);
         }
-
     }
+
 }

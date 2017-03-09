@@ -11,45 +11,45 @@ public class Piece {
         return jumpTarget;
     }
 
-    public void setJumpTarget(boolean target) {
+    void setJumpTarget(boolean target) {
         jumpTarget = target;
         mCellStaying.invalidate();
     }
 
-    public void setCellStaying(Cell mCellStaying) {
+    void setCellStaying(Cell mCellStaying) {
         this.mCellStaying = mCellStaying;
     }
 
-    public Piece(int color) {
+    Piece(int color) {
         mColor = color;
     }
 
-    public int getColor() {
+    int getColor() {
         return mColor;
     }
 
-    public boolean hasNextStep() {
+    boolean hasNextStep() {
         return isOnCell() && ( leftMove.isValidMove() || rightMove.isValidMove());
     }
 
-    public Move getLeftMove() {
+    Move getLeftMove() {
         return leftMove;
     }
 
-    public Move getRightMove() {
+    Move getRightMove() {
         return rightMove;
     }
 
-    public void showHint() {
+    void showHint() {
         leftMove.hint();
         rightMove.hint();
     }
 
-    public boolean canJump() {
+    boolean canJump() {
         return isOnCell() && (leftMove.isJump() || rightMove.isJump());
     }
 
-    public void showJumpHint() {
+    void showJumpHint() {
         if(leftMove.isJump()) leftMove.hint();
         if(rightMove.isJump()) rightMove.hint();
     }
@@ -58,16 +58,16 @@ public class Piece {
         return mColor == Board.DEFAULT_PIECE_COLOR_2;
     }
 
-    public void hideHint() {
+    void hideHint() {
         leftMove.hideHint();
         rightMove.hideHint();
     }
 
-    public boolean isOnCell() {
+    boolean isOnCell() {
         return mCellStaying != null;
     }
 
-    public void updateMoves() {
+    void updateMoves() {
         if(isJumpTarget()) {
             jumpTarget = false;
             if(mCellStaying != null) mCellStaying.invalidate();
@@ -101,7 +101,7 @@ public class Piece {
 
     }
 
-    public void updateJumpLeftFront() {
+    private void updateJumpLeftFront() {
         leftMove.reset();
         Cell leftFrontCell = leftFrontCell();
         if(leftFrontCell != null
@@ -116,7 +116,7 @@ public class Piece {
         }
     }
 
-    public void updateJumpRightFront() {
+    private void updateJumpRightFront() {
         rightMove.reset();
         Cell rightFrontCell = rightFrontCell();
         if(rightFrontCell != null
@@ -131,12 +131,12 @@ public class Piece {
         }
     }
 
-    public Cell leftFrontCell() {
+    private Cell leftFrontCell() {
         if(mCellStaying == null) throw new RuntimeException("Piece is off board");
         return mCellStaying.getLeftFrontCellFromDirection(isBlackPiece());
     }
 
-    public Cell rightFrontCell() {
+    private Cell rightFrontCell() {
         if(mCellStaying == null) throw new RuntimeException("Piece is off board");
         return mCellStaying.getRightFrontCellFromDirection(isBlackPiece());
     }

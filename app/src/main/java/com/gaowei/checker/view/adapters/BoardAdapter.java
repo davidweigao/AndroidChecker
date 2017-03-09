@@ -14,12 +14,10 @@ import com.gaowei.checker.view.CellView;
 
 public class BoardAdapter extends BaseAdapter {
 
-    private Board mBoard;
-    private Context mContext;
-    private LayoutInflater mInflater;
+    private final Board mBoard;
+    private final LayoutInflater mInflater;
 
-    public BoardAdapter(Context context, Board board) {
-        mContext = context;
+    public BoardAdapter(final Context context, final Board board) {
         mBoard = board;
         mInflater = LayoutInflater.from(context);
     }
@@ -30,23 +28,23 @@ public class BoardAdapter extends BaseAdapter {
     }
 
     @Override
-    public Cell getItem(int position) {
+    public Cell getItem(final int position) {
         int row = position / Board.LENGTH;
         int column = position % Board.LENGTH;
         return mBoard.getCell(row, column);
     }
 
     @Override
-    public long getItemId(int position) {
+    public long getItemId(final int position) {
         return getItem(position).hashCode();
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
+        if (convertView == null) {
             convertView = mInflater.inflate(R.layout.griditem_cell, parent, false);
             Cell cell = getItem(position);
-            ((CellView)convertView).setCell(cell);
+            ((CellView) convertView).setCell(cell);
         }
         return convertView;
     }

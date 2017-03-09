@@ -1,5 +1,5 @@
 package com.gaowei.checker.model;
 
-public interface PieceMovedListener {
+interface PieceMovedListener {
     public void pieceMoved();
 }

@@ -2,13 +2,13 @@ package com.gaowei.checker.model;
 
 public class Board {
     public static int LENGTH = 8;
-    public static int PIECE_AMOUNT = LENGTH / 2 * (LENGTH / 2 - 1);
-    public static int DEFAULT_CELL_COLOR_2 = 0xff614037;
-    public static int DEFAULT_CELL_COLOR_1 = 0xffdecab1;
-    public static int DEFAULT_PIECE_COLOR_1 = 0xffffffff;
-    public static int DEFAULT_PIECE_COLOR_2 = 0xff000000;
+    private static int PIECE_AMOUNT = LENGTH / 2 * (LENGTH / 2 - 1);
+    private static int DEFAULT_CELL_COLOR_2 = 0xff614037;
+    private static int DEFAULT_CELL_COLOR_1 = 0xffdecab1;
+    private static int DEFAULT_PIECE_COLOR_1 = 0xffffffff;
+    static int DEFAULT_PIECE_COLOR_2 = 0xff000000;
 
-    Cell[][] mCells = new Cell[LENGTH][LENGTH];
+    private Cell[][] mCells = new Cell[LENGTH][LENGTH];
     Piece[] mWhitePieces = new Piece[PIECE_AMOUNT];
     Piece[] mBlackPieces = new Piece[PIECE_AMOUNT];
 
@@ -29,7 +29,7 @@ public class Board {
         buildCellGraph();
     }
 
-    public void reset() {
+    void reset() {
         int l = LENGTH / 2 - 1;
         int count = 0;
         for(int i = 0 ; i < LENGTH; i++) {

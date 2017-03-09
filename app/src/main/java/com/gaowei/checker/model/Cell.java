@@ -5,36 +5,36 @@ import com.gaowei.checker.view.CellView;
 public class Cell {
     private CellView view;
     private Piece mPiece;
-    private int mColor;
+    private final int mColor;
     private Move hint;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     private Cell leftFrontCell;
     private Cell rightFrontCell;
     private Cell leftBackCell;
     private Cell rightBackCell;
-    public Cell(int color, int x, int y) {
+    Cell(final int color, final int x, final int y) {
         mColor = color;
         this.x = x;
         this.y = y;
     }
-    public void setLeftFrontCell(Cell cell) {
+    void setLeftFrontCell(Cell cell) {
         leftFrontCell = cell;
     }
 
-    public void setRightFrontCell(Cell cell) {
+    void setRightFrontCell(Cell cell) {
         rightFrontCell = cell;
     }
 
-    public void setLeftBackCell(Cell cell) {
+    void setLeftBackCell(Cell cell) {
         leftBackCell = cell;
     }
 
-    public void setRightBackCell(Cell cell) {
+    void setRightBackCell(Cell cell) {
         rightBackCell = cell;
     }
 
-    public Cell getLeftFrontCellFromDirection(boolean fromBlackPlayer) {
+    Cell getLeftFrontCellFromDirection(boolean fromBlackPlayer) {
         if(fromBlackPlayer) {
             return getLeftFrontCell();
         } else {
@@ -42,7 +42,7 @@ public class Cell {
         }
     }
 
-    public Cell getRightFrontCellFromDirection(boolean fromBlackPlayer) {
+    Cell getRightFrontCellFromDirection(boolean fromBlackPlayer) {
         if(fromBlackPlayer) {
             return getRightFrontCell();
         } else {
@@ -50,27 +50,27 @@ public class Cell {
         }
     }
 
-    public Cell getLeftFrontCell() {
+    private Cell getLeftFrontCell() {
         return leftFrontCell;
     }
 
-    public Cell getRightFrontCell() {
+    private Cell getRightFrontCell() {
         return rightFrontCell;
     }
 
-    public Cell getLeftBackCell() {
+    private Cell getLeftBackCell() {
         return leftBackCell;
     }
 
-    public Cell getRightBackCell() {
+    private Cell getRightBackCell() {
         return rightBackCell;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    int getY() {
         return y;
     }
 
@@ -82,7 +82,7 @@ public class Cell {
         return mPiece != null;
     }
 
-    public void setHint(Move hint) {
+    void setHint(Move hint) {
         this.hint = hint;
         invalidate();
     }
@@ -116,8 +116,7 @@ public class Cell {
         return mPiece;
     }
 
-
-    public boolean implementHint() {
+    boolean implementHint() {
         if(hint != null) {
             boolean isJump = hint.isJump();
             hint.implement();
@@ -127,7 +126,7 @@ public class Cell {
         }
     }
 
-    public void invalidate() {
+    void invalidate() {
         if(view != null) view.invalidate();
     }
 
