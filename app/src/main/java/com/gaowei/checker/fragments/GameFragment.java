@@ -19,24 +19,22 @@ import com.gaowei.checker.model.Player;
 import com.gaowei.checker.view.adapters.BoardAdapter;
 import com.gaowei.checker.R;
 
-public class GameFragment extends Fragment implements AdapterView.OnItemClickListener, GameStateListener, View.OnClickListener{
+public class GameFragment extends Fragment implements AdapterView.OnItemClickListener, GameStateListener, View.OnClickListener {
     private Game mGame;
-    private Board mBoard;
     private GridView boardView;
     private BoardAdapter mAdapter;
     private Player mBlackPiecePlayer;
-    private Player mWhitePiecePlayer;
     private Player mCurrentPlayer;
 
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_game, container, false);
-        mBoard = new Board();
+        Board mBoard = new Board();
         mGame = new Game(mBoard);
-        mWhitePiecePlayer = new BotPlayer();
+        final Player whitePiecePlayer = new BotPlayer();
         mBlackPiecePlayer = new Player();
-        mGame.newGame(mWhitePiecePlayer, mBlackPiecePlayer,this);
+        mGame.newGame(whitePiecePlayer, mBlackPiecePlayer, this);
         mGame.reset();
         boardView = (GridView) view.findViewById(R.id.boardGridView);
         boardView.setNumColumns(Board.LENGTH);
@@ -50,13 +48,13 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-        Cell cell = mAdapter.getItem(position);
-        if(cell.isOccupied()) {
-            if(mCurrentPlayer == mBlackPiecePlayer && cell.getPiece().isBlackPiece()) {
+        final Cell cell = mAdapter.getItem(position);
+        if (cell.isOccupied()) {
+            if (mCurrentPlayer == mBlackPiecePlayer && cell.getPiece().isBlackPiece()) {
                 mBlackPiecePlayer.showHint(cell);
             }
-        } else if(cell.hasHint()) {
-            if(mCurrentPlayer == mBlackPiecePlayer) {
+        } else if (cell.hasHint()) {
+            if (mCurrentPlayer == mBlackPiecePlayer) {
                 mBlackPiecePlayer.movePieceTo(cell);
             }
         }
@@ -69,10 +67,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onClick(final View v) {
-        switch(v.getId()) {
-            case R.id.newGameButton:
-                gameReset();
-                break;
+        if (R.id.newGameButton == v.getId()) {
+            gameReset();
         }
     }
 
@@ -83,9 +79,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void gameover(final Player winner) {
-        Toast.makeText(getActivity(),
-                winner.equals(mBlackPiecePlayer) ? R.string.you_win : R.string.you_lost,
-                Toast.LENGTH_SHORT).show();
+        final int textRes = winner.equals(mBlackPiecePlayer) ? R.string.you_win : R.string.you_lost;
+        Toast.makeText(getActivity(), textRes, Toast.LENGTH_SHORT).show();
         boardView.setOnItemClickListener(null);
     }
 }

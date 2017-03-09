@@ -3,5 +3,5 @@
     <string name="title">Happy Checker Lite!</string>
     <string name="new.game">NEW GAME</string>
     <string name="you.win">You Win!!!</string>
-    <string name="you.lost">You lost...</string>
+    <string name="you.lost">You lost…</string>
 </resources>

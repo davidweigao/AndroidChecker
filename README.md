@@ -1,1 +1,1 @@
-This is a checker game on Android.
+This is a simple Checker game I created long time ago. Uploading to github for archive.
